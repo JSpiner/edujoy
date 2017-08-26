@@ -37,4 +37,13 @@ public class DishListView extends FrameLayout {
         binding.pager.setPageMargin(75);
     }
 
+    public void setTitleType(int type){
+        if(type == 1){
+            binding.title.setText("Recent Recipe");
+        }
+        else{
+            binding.title.setText("Recommend for you");
+        }
+    }
+
 }

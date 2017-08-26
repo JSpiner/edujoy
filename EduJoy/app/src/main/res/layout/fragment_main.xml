@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -18,6 +19,7 @@
 
             <net.jspiner.edujoy.main.view.DishListView
                 android:layout_width="match_parent"
+                app:setTitleType="@{1}"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp">
 
@@ -26,6 +28,7 @@
             <net.jspiner.edujoy.main.view.DishListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:setTitleType="@{2}"
                 android:layout_marginTop="50dp">
 
             </net.jspiner.edujoy.main.view.DishListView>
