@@ -1,5 +1,6 @@
 package net.jspiner.edujoy.main;
 
+import android.Manifest;
 import android.databinding.DataBindingUtil;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -29,5 +30,12 @@ public class MainActivity extends AppCompatActivity {
 
         binding.tabLayout.setupWithViewPager(binding.pager);
 
+        requestPermissions(
+                new String[] {
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                },
+                1
+        );
     }
 }

@@ -1,4 +1,4 @@
-package net.jspiner.edujoy.choice;
+package net.jspiner.edujoy;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -6,24 +6,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import net.jspiner.edujoy.R;
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
+
 import net.jspiner.edujoy.databinding.ViewCategoryBinding;
-import net.jspiner.edujoy.databinding.ViewLargeTypeBinding;
+import net.jspiner.edujoy.databinding.ViewRecipeBinding;
+import net.jspiner.edujoy.ingredients.FoodItem;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 
-public class DetailCategoryAdapter extends BaseAdapter {
+public class RecipeAdapter extends BaseAdapter {
 
     Context context;
-    ArrayList<JSONObject> calList;
+    ArrayList<FoodItem> calList;
 
-    public DetailCategoryAdapter(Context context, ArrayList<JSONObject> calList) {
+    public RecipeAdapter(Context context, ArrayList<FoodItem> calList) {
         this.context = context;
         this.calList = calList;
     }
@@ -45,25 +47,20 @@ public class DetailCategoryAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewCategoryBinding binding = DataBindingUtil.inflate(
+        ViewRecipeBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(context),
-                R.layout.view_category,
+                R.layout.view_recipe,
                 parent,
                 false
         );
 
-        try {
-            binding.title.setText(calList.get(position).get("name").toString());
-            Object kcal = calList.get(position).get("cal");
-            if(kcal instanceof Double){
-                kcal = ((Double) kcal).intValue();
-            }
-            binding.kcal.setText(kcal + "kcal");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        Picasso.with(context)
+                .load(calList.get(position).filePath)
+                .resize(1000,1000)
+                .centerCrop()
+                .into(binding.image);
 
+        binding.name.setText(calList.get(position).name);
         return binding.getRoot();
     }
-
 }

@@ -20,9 +20,10 @@
             app:layout_collapseMode="pin">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kcook"
+                android:gravity="center_horizontal"
+                android:text="KcooK"
                 android:textColor="#ffffff"
                 android:textSize="15dp" />
 

@@ -1,29 +1,31 @@
-package net.jspiner.edujoy.choice;
+package net.jspiner.edujoy.ingredients;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import net.jspiner.edujoy.R;
+import net.jspiner.edujoy.databinding.CardFoodBinding;
 import net.jspiner.edujoy.databinding.ViewCategoryBinding;
-import net.jspiner.edujoy.databinding.ViewLargeTypeBinding;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 
-public class DetailCategoryAdapter extends BaseAdapter {
+public class SelectedItemsAdapter extends BaseAdapter {
 
     Context context;
-    ArrayList<JSONObject> calList;
+    ArrayList<FoodItem> calList;
 
-    public DetailCategoryAdapter(Context context, ArrayList<JSONObject> calList) {
+    public SelectedItemsAdapter(Context context, ArrayList<FoodItem> calList) {
         this.context = context;
         this.calList = calList;
     }
@@ -45,25 +47,30 @@ public class DetailCategoryAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewCategoryBinding binding = DataBindingUtil.inflate(
+        CardFoodBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(context),
-                R.layout.view_category,
+                R.layout.card_food,
                 parent,
                 false
         );
 
-        try {
-            binding.title.setText(calList.get(position).get("name").toString());
-            Object kcal = calList.get(position).get("cal");
-            if(kcal instanceof Double){
-                kcal = ((Double) kcal).intValue();
-            }
-            binding.kcal.setText(kcal + "kcal");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
+        Log.d("image", "pathj : " + calList.get(position).filePath);
+        Picasso.with(context)
+                .load(new File(calList.get(position).filePath))
+                .resize(1000,1000)
+                .centerCrop()
+                .into(binding.image);
+        binding.name.setText(calList.get(position).name);
+        binding.kcal.setText(calList.get(position).kcal + " kcal");
+
 
         return binding.getRoot();
+    }
+
+    public void addItem(FoodItem foodItem){
+        calList.add(foodItem);
+        notifyDataSetChanged();
     }
 
 }

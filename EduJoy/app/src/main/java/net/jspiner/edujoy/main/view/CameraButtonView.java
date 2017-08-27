@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.esafirm.imagepicker.features.ImagePicker;
 import com.squareup.picasso.Picasso;
 
 import net.jspiner.edujoy.R;
